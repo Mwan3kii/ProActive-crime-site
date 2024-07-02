@@ -24,7 +24,6 @@ def index():
 def about():
     return render_template("about.html")
 
-@views.route("/")
 @views.route("/home")
 @login_required
 def home():
