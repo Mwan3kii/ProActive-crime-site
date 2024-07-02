@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>About Page</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free Website Template" name="keywords">
+        <meta content="Free Website Template" name="description">
+
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:300;400;600;700;800&display=swap" rel="stylesheet">
+
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}"/>
+
+    </head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar bg-primary">
+                <div class="sidebar-text d-flex flex-column h-100 justify-content-center text-center">
+                    <img class="mx-auto d-block w-75 bg-secondary img-fluid rounded-circle mb-4 p-3" src="{{url_for('static', filename='img/proac_1.png')}}" alt="Image">
+                    <h1 class="font-weight-bold">ProActive</h1>
+                    <p class="mb-4" style="color: white;">
+                      Welcome to the site where we post anonymously about crimes in our community.
+                      To participate and make posts on the
+                      site you have to signup. Please, choose a convenient username that will be used with the website.
+                    </p>
+                </div>
+                <div class="sidebar-icon d-flex flex-column h-100 justify-content-center text-right">
+                    <i class="fas fa-2x fa-angle-double-right text-primary"></i>
+                </div>
+            </div>
+            <!-- Navbar Start -->
+            <div class="container p-0">
+                <nav class="navbar navbar-expand-lg bg-secondary navbar-dark">
+                        <a href="" class="navbar-brand d-block d-lg-none"><img src="{{url_for('static', filename='img/pro_d12.png')}}" alt="Logo" style="width: 125px; height: 50px;"></a>
+                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                            <div class="navbar-nav m-auto">
+                                <a href="/" class="nav-item nav-link">Home</a>
+                                <a href="/about" class="nav-item nav-link active">About</a>
+                            </div>
+                        </div>
+                </nav>
+            </div>
+            <!-- Navbar End -->
+        <div class="content">
+
+            <!-- Page Header Start -->
+            <div class="container py-5 px-2 bg-primary">
+                <div class="row py-5 px-4">
+                    <div class="col-sm-6 text-md-center">
+                        <h1 class="mb-3 mb-md-0 text-white text-uppercase font-weight-bold">About  Me</h1>
+                    </div>
+                    <p class="text-white text-justify">
+                      I am a full-stack software engineer specializing in front-end and back-end web development.
+                      With expertise in HTML, CSS, JavaScript, React, and Redux, I craft intuitive and engaging user
+                      interfaces that bring digital experiences to life. I have successfully built and maintained
+                      88 professional program repositories in a period of three months on GitHub,
+                      a personal accomplishment that fills me with pride. Engaged in remote work for the past several months,
+                      I have had the opportunity to collaborate with talented programmers from diverse geographical locations,
+                      transcending time zones and working asynchronously.
+                    </p>
+                </div>
+            </div>
+            <!-- Page Header End -->
+
+
+            <!-- Contact Start -->
+            <div class="container bg-white pt-5">
+                <div class="row px-3 pb-2">
+                    <div class="col-sm-4 text-center mb-3">
+                        <a href="https://github.com/Mwan3kii"><i class="fa fa-github" style="font-size:48px;color:#2a4b7c"></i></a>
+                    </div>
+                    <div class="col-sm-4 text-center mb-3">
+                        <a href="https://x.com/AgathaMwaniki"><i class="fa fa-twitter" style="font-size:48px;color:#2a4b7c"></i></a>
+                    </div>
+                    <div class="col-sm-4 text-center mb-3">
+                        <a href="https://www.linkedin.com/in/agatha-mwaniki"><i class="fa fa-linkedin" style="font-size:48px;color:#2a4b7c"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-12 pb-5">
+                    <div class="contact-form">
+                        <div id="success"></div>
+                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                            <div class="control-group">
+                                <input type="text" class="form-control" id="name" placeholder="Your Name" required="required" data-validation-required-message="Please enter your name" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="control-group">
+                                <input type="email" class="form-control" id="email" placeholder="Your Email" required="required" data-validation-required-message="Please enter your email" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="control-group">
+                                <input type="text" class="form-control" id="subject" placeholder="Subject" required="required" data-validation-required-message="Please enter a subject" />
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="control-group">
+                                <textarea class="form-control" rows="8" id="message" placeholder="Message" required="required" data-validation-required-message="Please enter your message"></textarea>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" type="submit" id="sendMessageButton">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Contact End -->
+            <!-- Footer Start -->
+                <div class="container py-4 bg-secondary text-center">
+                    <p class="m-0 text-white">
+                        &copy; <a class="text-white font-weight-bold" href="https://github.com/Mwan3kii/ProActive-crime-site">Github Repository</a></p>
+                </div>
+                <!-- Footer End -->
+            </div>
+        </div>
+
+        <!-- Back to Top -->
+        <a href="#" class="back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
