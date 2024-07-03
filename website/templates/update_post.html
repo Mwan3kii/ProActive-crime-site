@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+{% block logo%}
+<div>
+  <img src="{{url_for('static', filename='log.png')}}" alt="logo" type="image/x-icon" style="width: 125px; height: 50px;"/>
+</div>
+{% endblock %}
+{% block content%}
+<h2 align="center">{% block header %}Update Post{% endblock %}</h2>
+<div id="posts">
+  <div class="card border-dark">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <div id="update-post">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="text1">Title</label>
+                <input type="text" class="form-control" id="text1" name="text1" value="{{ post.title }}" required>
+            </div>
+            <div class="form-group">
+                <label for="text">Content</label>
+                <textarea class="form-control" id="text" name="text" rows="3" required>{{ post.text }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="uploaded_img">Update Image (optional)</label>
+                <input type="file" class="form-control-file" id="uploaded_img" name="uploaded_img">
+            </div>
+            {% if post.image %}
+                <div class="form-group">
+                    <label>Current Image</label>
+                    <img src="{{ url_for('static', filename='uploads/' + post.image) }}" alt="Post Image" width="200">
+                </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary">Update Post</button>
+        </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
