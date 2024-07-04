@@ -18,13 +18,13 @@
         <i
           class="fas fa-star"
           id="like-button-{{post.id}}"
-          onclick="like({{post.id}})"
+          onclick="like('{{post.id}}')"
         ></i>
         {% else %}
         <i
           class="far fa-star"
           id="like-button-{{post.id}}"
-          onclick="like({{post.id}})"
+          onclick="like('{{post.id}}')"
         ></i>
         {% endif %} {% if user.id == post.author or user.role == 'admin' %}
         <div class="btn-group">
