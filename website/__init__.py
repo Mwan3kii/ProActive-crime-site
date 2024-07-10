@@ -1,8 +1,10 @@
+"""Import necessary modules from Flask and other packages"""
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 
+# Initialize SQLAlchemy database instance
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
