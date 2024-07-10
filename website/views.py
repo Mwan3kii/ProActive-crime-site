@@ -32,6 +32,9 @@ def index():
 # Route for the about page
 @views.route("/about")
 def about():
+    """
+    Returns the rendered html page for the About section
+    """
     return render_template("about.html")
 
 # Route for the home page, requires user to be logged in
