@@ -202,11 +202,12 @@ def like(post_id):
     if not post:
         return jsonify({'error': 'Post does not exist.'}, 400)
     elif like:
-        db.session.delete(like)
+        db.session.delete(like) # Unlike the post
         db.session.commit()
     else:
         like = Like(author=current_user.id, post_id=post_id)
-        db.session.add(like)
+        db.session.add(like) # Like the post
         db.session.commit()
 
+     # Return the updated like count and whether the current user has liked the post
     return jsonify({"likes": len(post.likes), "liked": current_user.id in map(lambda x: x.author, post.likes)})
