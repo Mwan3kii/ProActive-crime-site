@@ -102,12 +102,13 @@ def delete_post(id):
 @views.route("/update-post/<id>", methods=['GET', 'POST'])
 @login_required
 def update_post(id):
-    post = Post.query.filter_by(id=id).first()
+    post = Post.query.filter_by(id=id).first() # Get the post by ID
 
     if not post:
         flash("Post does not exist.", category='error')
         return redirect(url_for('views.home'))
 
+    # Retrieve the user inputs when updating the post
     if request.method == 'POST':
         text = request.form.get('text')
         text1 = request.form.get('text1')
@@ -118,13 +119,14 @@ def update_post(id):
         elif uploaded_img and not allowed_file(uploaded_img.filename):
             flash('Not an image!(Accepted Formats -> png, jpg, jpeg, gif, webp)', category='error')
         else:
-            post.text = text
-            post.title = text1
+            post.text = text # Update the post text
+            post.title = text1 # Update the post title
+            # If a new image is uploaded and has an allowed extension, save it
             if uploaded_img:
                 picName = str(uuid.uuid1()) + os.path.splitext(uploaded_img.filename)[1]
                 img_filename = secure_filename(picName)
                 uploaded_img.save(os.path.join(UPLOAD_FOLDER, img_filename))
-                post.image = picName
+                post.image = picName # Update the post image
 
             db.session.commit()
             flash('Post updated!', category='success')
@@ -136,15 +138,16 @@ def update_post(id):
 @views.route("/posts/<username>")
 @login_required
 def posts(username):
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username).first() # Get the user by username
 
     if not user:
         flash('No user with that username exists.', category='error')
         return redirect(url_for('views.home'))
 
-    posts = user.posts
+    posts = user.posts # Get the posts by the user
     return render_template("posts.html", user=current_user, posts=posts, username=username)
 
+# Function to display an image
 def display_image(filename):
     print('display_image filename: ' + filename)
     return redirect(url_for('static', filename='uploads/'+ filename), code=301)
@@ -154,17 +157,17 @@ def display_image(filename):
 @views.route("/create-comment/<post_id>", methods=['POST'])
 @login_required
 def create_comment(post_id):
-    text = request.form.get('text')
+    text = request.form.get('text') # Get the comment text
 
     if not text:
         flash('Comment cannot be empty.', category='error')
     else:
-        post = Post.query.filter_by(id=post_id)
+        post = Post.query.filter_by(id=post_id) # Get the post by ID
         if post:
             comment = Comment(
                 text=text, author=current_user.id, post_id=post_id)
-            db.session.add(comment)
-            db.session.commit()
+            db.session.add(comment) # Add the comment to the database
+            db.session.commit() # Commit the changes
         else:
             flash('Post does not exist.', category='error')
 
@@ -182,7 +185,7 @@ def delete_comment(comment_id):
     elif current_user.id != comment.author and current_user.id != comment.post.author:
         flash('You do not have permission to delete this comment.', category='error')
     else:
-        db.session.delete(comment)
+        db.session.delete(comment) # Deletes the comment
         db.session.commit()
 
     return redirect(url_for('views.home'))
@@ -199,11 +202,12 @@ def like(post_id):
     if not post:
         return jsonify({'error': 'Post does not exist.'}, 400)
     elif like:
-        db.session.delete(like)
+        db.session.delete(like) # Unlike the post
         db.session.commit()
     else:
         like = Like(author=current_user.id, post_id=post_id)
-        db.session.add(like)
+        db.session.add(like) # Like the post
         db.session.commit()
 
+     # Return the updated like count and whether the current user has liked the post
     return jsonify({"likes": len(post.likes), "liked": current_user.id in map(lambda x: x.author, post.likes)})
