@@ -74,5 +74,6 @@ def sign_up():
 @auth.route("/logout")
 @login_required
 def logout():
+    # Log out the current user and redirect to the home page.
     logout_user()
     return redirect(url_for("views.home"))

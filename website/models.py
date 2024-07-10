@@ -1,4 +1,4 @@
-"""Import necessary modules"""
+"""Import necessary modules and funtions from Flask and other packages"""
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
