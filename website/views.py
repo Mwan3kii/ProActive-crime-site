@@ -138,13 +138,13 @@ def update_post(id):
 @views.route("/posts/<username>")
 @login_required
 def posts(username):
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username).first() # Get the user by username
 
     if not user:
         flash('No user with that username exists.', category='error')
         return redirect(url_for('views.home'))
 
-    posts = user.posts
+    posts = user.posts # Get the posts by the user
     return render_template("posts.html", user=current_user, posts=posts, username=username)
 
 def display_image(filename):
