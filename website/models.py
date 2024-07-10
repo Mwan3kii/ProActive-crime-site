@@ -1,11 +1,26 @@
+"""Import necessary modules"""
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 import pytz
 import datetime
 
-
+# Define the User model, representing a user in the application.
 class User(db.Model, UserMixin):
+    """
+    User model for storing user details.
+
+    Attributes:
+        id (int): Unique identifier for the user.
+        email (str): The email address of the user.
+        username (str): The username chosen by the user.
+        password (str): The hashed password of the user.
+        role (str): The role assigned to the user.
+        date_created (datetime): The date and time when user was created.
+        post (relationship): Relationship to the Post model, representing posts created by the user.
+        comments (reltionship): Relationship to the Comment model, representing comments mades by the user.
+        likes (relationship): Relationship to the Like model, representing likes given by the user.
+    """
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     username = db.Column(db.String(150), unique=True)
@@ -17,7 +32,21 @@ class User(db.Model, UserMixin):
     likes = db.relationship('Like', backref='user', passive_deletes=True)
 
 
+# Define the Post model, representing a post created by user.
 class Post(db.Model):
+    """
+    Post model for storing user posts.
+
+    Attributes:
+        id (int): Unique identifier for the post.
+        text (str): The content of the post.
+        title (str): The title of the post.
+        image (str): The image associated with the post (optional).
+        date_created (datetime): The date and time when the post was created.
+        author (int): The ID of the user who created the post.
+        comments (relationship): A relationship to the Comment model, representing the comments on the post.
+        likes (relationship): A relationship to the Like model, representing the likes on the post.
+    """
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text, nullable=False)
     title = db.Column(db.Text, nullable=False)
@@ -29,7 +58,18 @@ class Post(db.Model):
     likes = db.relationship('Like', backref='post', passive_deletes=True)
 
 
+# Define Comment model, representing a comment made on a post by a user.
 class Comment(db.Model):
+    """
+    Comment model for storing comments on posts.
+
+    Attributes:
+        id (int): Unique identifier for the comment.
+        text (str): The content of the comment.
+        date_created (datetime): The date and time when the comment was created.
+        author (int): The ID of the user who created the comment.
+        post_id (int): The ID of the post that the comment is associated with.
+    """
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(200), nullable=False)
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
@@ -39,7 +79,17 @@ class Comment(db.Model):
         'post.id', ondelete="CASCADE"), nullable=False)
 
 
+# Define Like model, representing a like given to a post by a user.
 class Like(db.Model):
+    """
+    Like model for storing likes on posts.
+
+    Attributes:
+        id (int): Unique identifier for the like.
+        date_created (datetime): The date and time when the like was created.
+        author (int): The ID of the user who created the like.
+        post_id (int): The ID of the post that the like is associated with.
+    """
     id = db.Column(db.Integer, primary_key=True)
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     author = db.Column(db.Integer, db.ForeignKey(
