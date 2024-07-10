@@ -147,6 +147,7 @@ def posts(username):
     posts = user.posts # Get the posts by the user
     return render_template("posts.html", user=current_user, posts=posts, username=username)
 
+# Function to display an image
 def display_image(filename):
     print('display_image filename: ' + filename)
     return redirect(url_for('static', filename='uploads/'+ filename), code=301)
