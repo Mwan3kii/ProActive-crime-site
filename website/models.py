@@ -1,11 +1,26 @@
+"""Import necessary modules"""
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 import pytz
 import datetime
 
-
+# Define the User model, representing a user in the application.
 class User(db.Model, UserMixin):
+    """
+    User model for storing user details.
+
+    Attributes:
+        id (int): Unique identifier for the user.
+        email (str): The email address of the user.
+        username (str): The username chosen by the user.
+        password (str): The hashed password of the user.
+        role (str): The role assigned to the user.
+        date_created (datetime): The date and time when user was created.
+        post (relationship): Relationship to the Post model, representing posts created by the user.
+        comments (reltionship): Relationship to the Comment model, representing comments mades by the user.
+        likes (relationship): Relationship to the Like model, representing likes given by the user.
+        """
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     username = db.Column(db.String(150), unique=True)
