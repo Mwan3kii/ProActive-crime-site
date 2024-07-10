@@ -42,6 +42,9 @@ def about():
 @views.route("/home")
 @login_required
 def home():
+    """
+    Gets all posts from the database and renders it on home html page
+    """
     posts = Post.query.all()
     return render_template("home.html", user=current_user, posts=posts)
 
@@ -49,16 +52,20 @@ def home():
 # Route for creating a new post
 @views.route("/create-post", methods=['GET', 'POST'])
 def create_post():
+    # Retrieve the user inputs when submitting the post
     if request.method == "POST":
         text = request.form.get('text')
         text1 = request.form.get('text1')
         uploaded_img = request.files.get("uploaded_img")
 
+        # Check if the post content or title is empty
         if not text or not text1:
             flash('Post cannot be empty', category='error')
+        # Check if the uploaded image has an allowed file extension
         elif uploaded_img and not allowed_file(uploaded_img.filename):
             flash('Not an image!(Accepted Formats -> png, jpg, jpeg, gif, webp)', category='error')
         else:
+             # If an image is uploaded and has an allowed extension, save it
             if uploaded_img and allowed_file(uploaded_img.filename):
                 picName = str(uuid.uuid1()) + os.path.splitext(uploaded_img.filename)[1]
                 img_filename = secure_filename(picName)
@@ -66,11 +73,13 @@ def create_post():
             else:
                 picName = "proac_1.png"
 
+            # Get the current user's ID if authenticated, otherwise use a default ID
             if current_user.is_authenticated:
                 author_id = current_user.id
             else:
                 author_id = 1  # Default user ID for anonymous posts
 
+            # Create a new Post object and add it to the database
             post = Post(text=text, image=picName, title=text1, author=author_id)
             db.session.add(post)
             db.session.commit()
