@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 auth = Blueprint("auth", __name__)
 
 
+# Route for logging in users
 @auth.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -29,6 +30,7 @@ def login():
     return render_template("login.html", user=current_user)
 
 
+# Route for signing up new users
 @auth.route("/sign-up", methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
@@ -64,6 +66,7 @@ def sign_up():
     return render_template("signup.html", user=current_user)
 
 
+# Route for logging out users
 @auth.route("/logout")
 @login_required
 def logout():
