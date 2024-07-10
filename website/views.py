@@ -1,3 +1,4 @@
+"""Import necessary modules and funtions from Flask and other packages"""
 from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify, Flask, session
 from flask_login import login_required, current_user
 from .models import Post, User, Comment, Like
@@ -6,10 +7,13 @@ from werkzeug.utils import secure_filename
 import os
 import uuid
 
+# Define the folder to store uploaded images
 UPLOAD_FOLDER = os.path.join("website","static","uploads")
 
+# Create a Blueprint for the views
 views = Blueprint("views", __name__)
 
+# Define the allowes extensions for uploaded images
 ALLOWED_EXTENSIONS = set(['png','jpg','jpeg','gif', 'webp'])
 
 def allowed_file(filename):
