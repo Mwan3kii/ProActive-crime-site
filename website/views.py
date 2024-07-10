@@ -167,7 +167,7 @@ def create_comment(post_id):
             comment = Comment(
                 text=text, author=current_user.id, post_id=post_id)
             db.session.add(comment) # Add the comment to the database
-            db.session.commit()
+            db.session.commit() # Commit the changes
         else:
             flash('Post does not exist.', category='error')
 
