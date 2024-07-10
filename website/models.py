@@ -79,7 +79,17 @@ class Comment(db.Model):
         'post.id', ondelete="CASCADE"), nullable=False)
 
 
+# Define Like model, representing a like given to a post by a user.
 class Like(db.Model):
+    """
+    Like model for storing likes on posts.
+
+    Attributes:
+        id (int): Unique identifier for the like.
+        date_created (datetime): The date and time when the like was created.
+        author (int): The ID of the user who created the like.
+        post_id (int): The ID of the post that the like is associated with.
+    """
     id = db.Column(db.Integer, primary_key=True)
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
     author = db.Column(db.Integer, db.ForeignKey(
