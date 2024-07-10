@@ -102,12 +102,13 @@ def delete_post(id):
 @views.route("/update-post/<id>", methods=['GET', 'POST'])
 @login_required
 def update_post(id):
-    post = Post.query.filter_by(id=id).first()
+    post = Post.query.filter_by(id=id).first() # Get the post by ID
 
     if not post:
         flash("Post does not exist.", category='error')
         return redirect(url_for('views.home'))
 
+    # Retrieve the user inputs when updating the post
     if request.method == 'POST':
         text = request.form.get('text')
         text1 = request.form.get('text1')
@@ -118,13 +119,14 @@ def update_post(id):
         elif uploaded_img and not allowed_file(uploaded_img.filename):
             flash('Not an image!(Accepted Formats -> png, jpg, jpeg, gif, webp)', category='error')
         else:
-            post.text = text
-            post.title = text1
+            post.text = text # Update the post text
+            post.title = text1 # Update the post title
+            # If a new image is uploaded and has an allowed extension, save it
             if uploaded_img:
                 picName = str(uuid.uuid1()) + os.path.splitext(uploaded_img.filename)[1]
                 img_filename = secure_filename(picName)
                 uploaded_img.save(os.path.join(UPLOAD_FOLDER, img_filename))
-                post.image = picName
+                post.image = picName # Update the post image
 
             db.session.commit()
             flash('Post updated!', category='success')
