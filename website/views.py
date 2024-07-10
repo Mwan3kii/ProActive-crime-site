@@ -16,18 +16,22 @@ views = Blueprint("views", __name__)
 # Define the allowes extensions for uploaded images
 ALLOWED_EXTENSIONS = set(['png','jpg','jpeg','gif', 'webp'])
 
+# Check if a file has one of the allowed extensions
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.',1)[1].lower() in ALLOWED_EXTENSIONS
 
+# Route for the home page
 @views.route("/")
 def index():
     posts = Post.query.all()
     return render_template("index.html", user=current_user, posts=posts)
 
+# Route for the about page
 @views.route("/about")
 def about():
     return render_template("about.html")
 
+# Route for the home page, requires user to be logged in
 @views.route("/")
 @views.route("/home")
 @login_required
@@ -36,6 +40,7 @@ def home():
     return render_template("home.html", user=current_user, posts=posts)
 
 
+# Route for creating a new post
 @views.route("/create-post", methods=['GET', 'POST'])
 def create_post():
     if request.method == "POST":
@@ -69,6 +74,7 @@ def create_post():
     return render_template('create_post.html', user=current_user)
 
 
+# Route for deleting a post
 @views.route("/delete-post/<id>")
 @login_required
 def delete_post(id):
@@ -83,6 +89,7 @@ def delete_post(id):
 
     return redirect(url_for('views.home'))
 
+# Route for updating a post
 @views.route("/update-post/<id>", methods=['GET', 'POST'])
 @login_required
 def update_post(id):
@@ -116,6 +123,7 @@ def update_post(id):
 
     return render_template('update_post.html', user=current_user, post=post)
 
+# Route for viewing posts by a specific user
 @views.route("/posts/<username>")
 @login_required
 def posts(username):
@@ -133,6 +141,7 @@ def display_image(filename):
     return redirect(url_for('static', filename='uploads/'+ filename), code=301)
 
 
+# Route for creating a comment on a post
 @views.route("/create-comment/<post_id>", methods=['POST'])
 @login_required
 def create_comment(post_id):
@@ -153,6 +162,7 @@ def create_comment(post_id):
     return redirect(url_for('views.home'))
 
 
+# Route for deleting a comment
 @views.route("/delete-comment/<comment_id>")
 @login_required
 def delete_comment(comment_id):
@@ -169,6 +179,7 @@ def delete_comment(comment_id):
     return redirect(url_for('views.home'))
 
 
+# Route for liking and unliking a post
 @views.route("/like-post/<post_id>", methods=['POST'])
 @login_required
 def like(post_id):
