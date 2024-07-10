@@ -34,15 +34,17 @@ def login():
 # Route for signing up new users
 @auth.route("/sign-up", methods=['GET', 'POST'])
 def sign_up():
-    if request.method == 'POST':
+    # Handle the sign-up process for new users.
+    if request.method == 'POST': # Validate user input and create a new user if valid
         email = request.form.get("email")
         username = request.form.get("username")
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
 
-        email_exists = User.query.filter_by(email=email).first()
-        username_exists = User.query.filter_by(username=username).first()
+        email_exists = User.query.filter_by(email=email).first() # Check if email is already in use
+        username_exists = User.query.filter_by(username=username).first() # Check if username is already in use
 
+        # Validate user input
         if email_exists:
             flash('Email is already in use.', category='error')
         elif username_exists:
@@ -56,11 +58,12 @@ def sign_up():
         elif len(email) < 4:
             flash("Email is invalid.", category='error')
         else:
+            # Create a new user and add to the database
             new_user = User(email=email, username=username, password=generate_password_hash(
                 password1, method='pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
-            login_user(new_user, remember=True)
+            login_user(new_user, remember=True) # Log the new user in
             flash('User created!')
             return redirect(url_for('views.home'))
 
