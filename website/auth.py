@@ -12,15 +12,16 @@ auth = Blueprint("auth", __name__)
 # Route for logging in users
 @auth.route("/login", methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
+    # Handle the login process for users.
+    if request.method == 'POST': # Validate user credentials and log them in if valid
         email = request.form.get("email")
         password = request.form.get("password")
 
-        user = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(email=email).first() # Query the user by email
         if user:
-            if check_password_hash(user.password, password):
+            if check_password_hash(user.password, password): # Check if password is correct
                 flash("Logged in!", category='success')
-                login_user(user, remember=True)
+                login_user(user, remember=True) # Log the user in
                 return redirect(url_for('views.home'))
             else:
                 flash('Password is incorrect.', category='error')
