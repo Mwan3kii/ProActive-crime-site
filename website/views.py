@@ -42,9 +42,7 @@ def about():
 @views.route("/home")
 @login_required
 def home():
-    """
-    Gets all posts from the database and renders it on home html page
-    """
+    # Gets all posts from the database and renders it on home html page
     posts = Post.query.all()
     return render_template("home.html", user=current_user, posts=posts)
 
