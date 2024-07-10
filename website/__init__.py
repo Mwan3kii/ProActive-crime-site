@@ -43,8 +43,9 @@ def create_app():
 
     return app
 
+# Function to create the database if it does not exist
 def create_database(app):
-    if not path.exists("website/" + DB_NAME):
+    if not path.exists("website/" + DB_NAME): # Check if the database file does not exist
         with app.app_context():
-            db.create_all()
+            db.create_all() # Create all tables defined in the models
             print("Created database!")
