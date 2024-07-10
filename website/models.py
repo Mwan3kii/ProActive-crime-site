@@ -58,7 +58,18 @@ class Post(db.Model):
     likes = db.relationship('Like', backref='post', passive_deletes=True)
 
 
+# Define Comment model, representing a comment made on a post by a user.
 class Comment(db.Model):
+    """
+    Comment model for storing comments on posts.
+
+    Attributes:
+        id (int): Unique identifier for the comment.
+        text (str): The content of the comment.
+        date_created (datetime): The date and time when the comment was created.
+        author (int): The ID of the user who created the comment.
+        post_id (int): The ID of the post that the comment is associated with.
+    """
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(200), nullable=False)
     date_created = db.Column(db.DateTime(timezone=True), default=func.now())
