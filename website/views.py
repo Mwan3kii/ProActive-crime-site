@@ -23,9 +23,7 @@ def allowed_file(filename):
 # Route for the home page
 @views.route("/")
 def index():
-    """
-    Gets all posts from the database
-    """
+    # Gets all posts from the database
     posts = Post.query.all()
     return render_template("index.html", user=current_user, posts=posts)
 
