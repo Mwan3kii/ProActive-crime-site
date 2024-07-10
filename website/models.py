@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
         post (relationship): Relationship to the Post model, representing posts created by the user.
         comments (reltionship): Relationship to the Comment model, representing comments mades by the user.
         likes (relationship): Relationship to the Like model, representing likes given by the user.
-        """
+    """
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     username = db.Column(db.String(150), unique=True)
@@ -32,7 +32,21 @@ class User(db.Model, UserMixin):
     likes = db.relationship('Like', backref='user', passive_deletes=True)
 
 
+# Define the Post model, representing a post created by user.
 class Post(db.Model):
+    """
+    Post model for storing user posts.
+
+    Attributes:
+        id (int): Unique identifier for the post.
+        text (str): The content of the post.
+        title (str): The title of the post.
+        image (str): The image associated with the post (optional).
+        date_created (datetime): The date and time when the post was created.
+        author (int): The ID of the user who created the post.
+        comments (relationship): A relationship to the Comment model, representing the comments on the post.
+        likes (relationship): A relationship to the Like model, representing the likes on the post.
+    """
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text, nullable=False)
     title = db.Column(db.Text, nullable=False)
