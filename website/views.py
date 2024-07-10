@@ -185,7 +185,7 @@ def delete_comment(comment_id):
     elif current_user.id != comment.author and current_user.id != comment.post.author:
         flash('You do not have permission to delete this comment.', category='error')
     else:
-        db.session.delete(comment)
+        db.session.delete(comment) # Deletes the comment
         db.session.commit()
 
     return redirect(url_for('views.home'))
